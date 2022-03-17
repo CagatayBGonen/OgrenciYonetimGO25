@@ -19,9 +19,7 @@ namespace OgrenciYonetimGO25
             
             while(true)
             {
-                Console.Write("Seciminiz: ");
-                string secim = Console.ReadLine().ToUpper();
-
+                string secim = SecimAl();
                 switch (secim)
                 {
                     case "1":
@@ -47,8 +45,18 @@ namespace OgrenciYonetimGO25
                         Console.WriteLine("Gecerli bir deger girin");
                         break;
                 }
+                if(secim == "X" || secim == "4")
+                {
+                    break;
+                }
             }
 
+        }
+        static string SecimAl()
+        {
+            Console.Write("Seciminiz: ");
+            string giris = Console.ReadLine().ToUpper();
+            return giris;
         }
         static void Menu()
         {
@@ -61,6 +69,43 @@ namespace OgrenciYonetimGO25
         }
         static void OgrenciSil()
         {
+            
+            Console.WriteLine("3- Ogrenci sil ----------" +
+                "\nSilmek istediginiz Ogrencinin");
+            Console.Write("No: ");
+            int no = int.Parse(Console.ReadLine());
+            foreach (Ogrenci item in Ogrenciler)
+            {
+                if(item.No == no)
+                {
+                    Console.WriteLine("Adi: "+item.Ad
+                        +"\nSoyadi: "+item.Soyad
+                        +"\nSubesi: "+item.Sube);
+                    Console.WriteLine("Ogrenciyi silmek istediginize emin misiniz (E/H)");
+                    string secim;
+                    while (true)
+                    {
+                        secim = Console.ReadLine().ToUpper();
+                        if (secim == "E")
+                        {
+                            Ogrenciler.Remove(item);
+                            Console.WriteLine("Ogrenci Silindi");
+                            break;
+                        }
+                        else if(secim == "H")
+                        {
+                            Console.WriteLine("Ogrenci Silinmedi");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Gecerli bir deger girin");
+                        }
+                    }
+                    break;
+                }
+            }
+            
 
         }
         static void OgrenciEkle()
