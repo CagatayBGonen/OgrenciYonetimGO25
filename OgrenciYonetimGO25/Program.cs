@@ -15,36 +15,49 @@ namespace OgrenciYonetimGO25
         }
         static void Uygulama()
         {
-            string secim;
-            do
+            Menu();
+            
+            while(true)
             {
-                Console.WriteLine("ogrenci Yonetim uygulamasi" +
-                "\n1- Ogrenci Ekle (E)" +
-                "\n2- Ogrenci Listele (L)" +
-                "\n3- Ogrenci Sil (S)" +
-                "\n4- Cikis (X)");
                 Console.Write("Seciminiz: ");
-                secim = Console.ReadLine().ToUpper();
+                string secim = Console.ReadLine().ToUpper();
 
                 switch (secim)
                 {
+                    case "1":
                     case "E":
                         OgrenciEkle();
                         break;
+
+                    case "2":
                     case "L":
                         OgrenciListele();
                         break;
+
+                    case "3":
                     case "S":
                         OgrenciSil();
                         break;
+
+                    case "4":
                     case "X":
                         Console.WriteLine("Cikis yaptiniz");
-                        break;                 
+                        break;
                     default:
                         Console.WriteLine("Gecerli bir deger girin");
                         break;
                 }
-            } while (secim != "X");            
+            }
+
+        }
+        static void Menu()
+        {
+            Console.WriteLine("ogrenci Yonetim uygulamasi" +
+                "\n1- Ogrenci Ekle (E)" +
+                "\n2- Ogrenci Listele (L)" +
+                "\n3- Ogrenci Sil (S)" +
+                "\n4- Cikis (X)");
+            
         }
         static void OgrenciSil()
         {
