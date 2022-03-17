@@ -10,12 +10,79 @@ namespace OgrenciYonetimGO25
 
         static void Main(string[] args)
         {
-            OgrenciListele();
+            SahteVeriGir();
+            Uygulama();
         }
+        static void Uygulama()
+        {
+            string secim;
+            do
+            {
+                Console.WriteLine("ogrenci Yonetim uygulamasi" +
+                "\n1- Ogrenci Ekle (E)" +
+                "\n2- Ogrenci Listele (L)" +
+                "\n3- Ogrenci Sil (S)" +
+                "\n4- Cikis (X)");
+                Console.Write("Seciminiz: ");
+                secim = Console.ReadLine().ToUpper();
 
+                switch (secim)
+                {
+                    case "E":
+                        OgrenciEkle();
+                        break;
+                    case "L":
+                        OgrenciListele();
+                        break;
+                    case "S":
+                        OgrenciSil();
+                        break;
+                    case "X":
+                        Console.WriteLine("Cikis yaptiniz");
+                        break;                 
+                    default:
+                        Console.WriteLine("Gecerli bir deger girin");
+                        break;
+                }
+            } while (secim != "X");            
+        }
+        static void OgrenciSil()
+        {
+
+        }
+        static void OgrenciEkle()
+        {
+            Ogrenci o = new Ogrenci();
+            Console.WriteLine("ogrenci Ekle ----------\nOgrencinin");
+            Console.Write("No: ");
+            o.No = int.Parse(Console.ReadLine());
+            Console.Write("Adi: ");
+            o.Ad = Console.ReadLine();
+            Console.Write("Soyadi: ");
+            o.Soyad = Console.ReadLine();
+            Console.Write("Subesi: ");
+            o.Sube = Console.ReadLine();
+            
+            Console.WriteLine("ogrenciyi katdetmek istediginize emin misiniz? (E/H)");
+
+            string kaydediyimMi = Console.ReadLine().ToUpper();
+            if (kaydediyimMi.Equals("E"))
+            {
+                Ogrenciler.Add(o);
+                Console.WriteLine("Ogrenci Eklendi");
+            }
+            else if (kaydediyimMi.Equals("H"))
+            {
+                Console.WriteLine("Ogrenci Eklenmedi");
+            }
+            else
+            {
+                Console.WriteLine("Gecerli bir deger girin");
+            }
+        }
         static void OgrenciListele()
         {
-            SahteVeriGir();
+            
             Console.WriteLine("Ogrenci Listele----------"+"\n"
                 +"\nSube    No    Ad Soyad"+"\n----------------------------");
             foreach (Ogrenci item in Ogrenciler)
