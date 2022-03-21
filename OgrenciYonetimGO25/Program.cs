@@ -5,7 +5,7 @@ namespace OgrenciYonetimGO25
 {
     class Program
     {
-
+        //Cagatay B Gonen
         static List<Ogrenci> Ogrenciler = new List<Ogrenci>(); // metod disinda olan her isimlendirme buyuk harfle baslar
 
         static void Main(string[] args)
@@ -40,22 +40,42 @@ namespace OgrenciYonetimGO25
                     case "4":
                     case "X":
                         Console.WriteLine("Cikis yaptiniz");
-                        break;
-                    default:
-                        Console.WriteLine("Gecerli bir deger girin");
-                        break;
+                        break;                   
                 }
-                if(secim == "X" || secim == "4")
+                if(secim == "4" || secim == "X")
                 {
                     break;
                 }
+                
             }
 
         }
         static string SecimAl()
         {
-            Console.Write("Seciminiz: ");
-            string giris = Console.ReadLine().ToUpper();
+            string giris;
+            int hataliGirisSayisi = 0;
+            while (true)
+            {
+                Console.Write("Seciminiz: ");
+                giris = Console.ReadLine().ToUpper();
+                if (giris != "1" && giris != "E" && giris != "2" && giris != "L" && giris != "3" && giris != "S" && giris != "4" && giris != "X")
+                {
+                    
+                    Console.WriteLine("Hatali giris yapildi.");
+                    hataliGirisSayisi++;
+                    if(hataliGirisSayisi >= 10)
+                    {
+                        Console.WriteLine("Uzgunum sizi anlayamiyorum. Program sonlandiriliyor.");
+                        giris = "X";
+                        break;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+            }           
             return giris;
         }
         static void Menu()
@@ -69,58 +89,94 @@ namespace OgrenciYonetimGO25
         }
         static void OgrenciSil()
         {
-            
-            Console.WriteLine("3- Ogrenci sil ----------" +
-                "\nSilmek istediginiz Ogrencinin");
-            Console.Write("No: ");
-            int no = int.Parse(Console.ReadLine());
-            foreach (Ogrenci item in Ogrenciler)
+
+            Console.WriteLine("3- Öğrenci Sil-----------");
+            bool ogrenciVarMi = Ogrenciler.Count != 0;
+            if (ogrenciVarMi)
             {
-                if(item.No == no)
+                Console.WriteLine("Silmek istediğiniz öğrencinin");
+                Console.Write("No: ");
+                int no = int.Parse(Console.ReadLine());
+
+                Ogrenci o = null;
+
+                foreach (Ogrenci x in Ogrenciler)
                 {
-                    Console.WriteLine("Adi: "+item.Ad
-                        +"\nSoyadi: "+item.Soyad
-                        +"\nSubesi: "+item.Sube);
-                    Console.WriteLine("Ogrenciyi silmek istediginize emin misiniz (E/H)");
-                    string secim;
-                    while (true)
+                    if (x.No == no)
                     {
-                        secim = Console.ReadLine().ToUpper();
-                        if (secim == "E")
-                        {
-                            Ogrenciler.Remove(item);
-                            Console.WriteLine("Ogrenci Silindi");
-                            break;
-                        }
-                        else if(secim == "H")
-                        {
-                            Console.WriteLine("Ogrenci Silinmedi");
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Gecerli bir deger girin");
-                        }
+                        o = x;
+                        break;
                     }
-                    break;
+                }
+
+                if (o != null)
+                {
+                    Console.WriteLine("Adı: " + o.Ad);
+                    Console.WriteLine("Soyadı: " + o.Soyad);
+                    Console.WriteLine("Şubesi: " + o.Sube);
+                    Console.WriteLine();
+                    Console.WriteLine("Öğrenciyi silmek istediğinize emin misiniz? (E/H)");
+                    string secim = Console.ReadLine().ToUpper();
+
+                    if (secim == "E")
+                    {
+                        Ogrenciler.Remove(o);
+                        Console.WriteLine("Öğrenci silindi.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Öğrenci silinmedi.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Bu numarada bir öğrenci bulunamadı.");
                 }
             }
+            else
+            {
+                Console.WriteLine("Listede silinecek ogrenci yok.");
+            }
             
+
 
         }
         static void OgrenciEkle()
         {
             Ogrenci o = new Ogrenci();
-            Console.WriteLine("ogrenci Ekle ----------\nOgrencinin");
-            Console.Write("No: ");
-            o.No = int.Parse(Console.ReadLine());
+            Console.WriteLine("ogrenci Ekle ----------" +
+                "\n"+ (Ogrenciler.Count+1) +". Ogrencinin");
+            while (true)
+            {
+                bool noVarMi = false;
+                Console.Write("No: ");
+                int no = int.Parse(Console.ReadLine());
+                foreach (Ogrenci item in Ogrenciler)
+                {
+                    if(item.No == no)
+                    {
+                        Console.WriteLine("No zaten var. Baska bir No girin.");
+                        noVarMi = true;
+                        break;
+                    }                    
+                    
+                }
+                if(!noVarMi)
+                {
+                    o.No = no;
+                    break;
+                }                               
+            }
+            
             Console.Write("Adi: ");
-            o.Ad = Console.ReadLine();
+            string ad = Console.ReadLine().ToLower();
+            o.Ad = ad.Substring(0,1).ToUpper()+ad.Substring(1);
             Console.Write("Soyadi: ");
-            o.Soyad = Console.ReadLine();
+            string soyad = Console.ReadLine().ToLower();
+            o.Soyad = soyad.Substring(0, 1).ToUpper() + soyad.Substring(1);
             Console.Write("Subesi: ");
             o.Sube = Console.ReadLine();
-            
+   
             Console.WriteLine("ogrenciyi katdetmek istediginize emin misiniz? (E/H)");
 
             string kaydediyimMi = Console.ReadLine().ToUpper();
@@ -140,13 +196,21 @@ namespace OgrenciYonetimGO25
         }
         static void OgrenciListele()
         {
-            
-            Console.WriteLine("Ogrenci Listele----------"+"\n"
-                +"\nSube    No    Ad Soyad"+"\n----------------------------");
-            foreach (Ogrenci item in Ogrenciler)
+            bool ogrenciVarMi = Ogrenciler.Count != 0;
+            if (ogrenciVarMi)
             {
-                Console.WriteLine(item.Sube+"    "+item.No+"    "+item.Ad+" "+item.Soyad);
+                Console.WriteLine("Ogrenci Listele----------" + "\n"
+                + "\nSube".PadRight(10) + "No".PadRight(10) + "Ad Soyad" + "\n----------------------------");
+                foreach (Ogrenci item in Ogrenciler)
+                {
+                    Console.WriteLine(item.Sube.PadRight(9) + item.No.ToString().PadRight(10) + item.Ad + " " + item.Soyad);
+                }
             }
+            else
+            {
+                Console.WriteLine("Gosterilecek ogrenci yok.");
+            }
+            
         }
         static void SahteVeriGir()
         {
