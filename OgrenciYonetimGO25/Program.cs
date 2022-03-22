@@ -10,9 +10,35 @@ namespace OgrenciYonetimGO25
 
         static void Main(string[] args)
         {
-            SahteVeriGir();
-            Uygulama();
+            //SahteVeriGir();
+            //Uygulama();
+            Test();
         }
+        static void Test()
+        {
+            Ogrenci o1 = new Ogrenci();
+            o1.Ad = "Cagatay";
+            o1.Soyad = "Yilmaz";
+            o1.Sube = "A";
+            o1.No = 10;
+            o1.DogumYili = 2009;
+            int o1Yas = o1.Yas();
+            
+            Console.WriteLine(o1Yas);
+
+            Ogrenci o2 = new Ogrenci();
+            o2.Ad = "Sude";
+            o2.Soyad = "korkmaz";
+            o2.Sube = "B";
+            o2.No = 23;
+            o2.DogumYili = 2013;
+            int o2Yas = o2.Yas();
+            
+            Console.WriteLine(o2Yas);
+        }
+
+
+
         static void Uygulama()
         {
             Menu();
