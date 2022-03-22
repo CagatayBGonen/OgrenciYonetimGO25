@@ -40,13 +40,9 @@ namespace OgrenciYonetimGO25
                     case "4":
                     case "X":
                         Console.WriteLine("Cikis yaptiniz");
-                        break;                   
+                        return;                   
                 }
-                if(secim == "4" || secim == "X")
-                {
-                    break;
-                }
-                
+                                
             }
 
         }
